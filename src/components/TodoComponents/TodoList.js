@@ -30,6 +30,7 @@ class ToDoList extends React.Component {
         // each time the state changes, it updates the render method()
         this.state = {
             tasks: listOfTasks,
+            task: "",
             id: "",
             completed: ""
         };
@@ -43,14 +44,17 @@ class ToDoList extends React.Component {
             completed: false
         }
 
+        console.log(newTask);
         // call setState to tell the computer directly 
         this.setState({
-            task: [... listOfTasks, newTask],
+            tasks: [... listOfTasks, newTask],
+            task: "",
             id: "",
             completed: ""
         });
     }
 
+    // track changes on the form :)
     handleChanges = e => {
         console.log(e.target.value);
         //     this.setState({ name: e.target.value })
@@ -64,13 +68,20 @@ class ToDoList extends React.Component {
         return (
 
             // use map to map all data from the listOfTasks
+            
+            // note the method binding on the ToDo Form.
             <div className="ToDoList">
                 <ul>
-                {this.state.tasks.map ( task =>
-                    <ToDo task={task.task} />                    
+                {this.state.tasks.map ( (task,key) =>
+                    <ToDo key={key} task={task} />                    
                 )}
                 </ul>
-                <ToDoForm/>
+                
+                <ToDoForm
+                    addTask = {this.addTask}
+                    value = {this.state.task}
+                    handleChanges = {this.handleChanges}
+                />
 
             </div>
         
