@@ -49,7 +49,7 @@ class ToDoList extends React.Component {
     }
 
             // toggle
-    toggle = (itemKey) => {
+    toggle = itemKey => {
 
             console.log(itemKey);
             this.setState({
@@ -98,7 +98,7 @@ class ToDoList extends React.Component {
             <div className="ToDoList">
                 <ul>
                 {this.state.tasks.map ( task =>
-                    <ToDo key={task.id} task={task} toggle = {this.toggle} />                    
+                    <ToDo id={task.id} task={task} toggle = {this.toggle} />                    
                 )}
                 </ul>
                 
