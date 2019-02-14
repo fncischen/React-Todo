@@ -49,46 +49,23 @@ class ToDoList extends React.Component {
     }
 
             // toggle
-        toggle = (e,selectedTask) => {
-            e.preventDefault();
+    toggle = (itemKey) => {
 
-            if (selectedTask.state.completed == false) {
-                this.setState({tasks: 
-                    this.state.tasks.map(task => {
-                        if (task == selectedTask) {
+            this.setState({
+                tasks: this.state.tasks.map(task => {
+                     if (itemKey == task.id) {
                             return {
                                 task: task.task,
                                 id: task.id,
-                                completed: true
-                            }
+                                completed: !task.completed
+                            };
                         }
-                        return task;
-                    }
-                    )
-                });
+                            return task;
+                    })
+            });
 
-                selectedTask.setState({completed: true});
-
-            }
-            else {
-                this.setState({tasks: 
-                    this.state.tasks.map(task => {
-                        if (task == selectedTask) {
-                            return {
-                                task: task.task,
-                                id: task.id,
-                                completed: false
-                            }
-                        }
-                        return task;
-                    }
-                    )
-                });
-
-                selectedTask.setState({completed: false});
-
-            };
-        }
+            console.log("toggled!");
+    }
 
     clearCompleted = e => {
         console.log("clearing completed!");
@@ -118,8 +95,8 @@ class ToDoList extends React.Component {
 
             <div className="ToDoList">
                 <ul>
-                {this.state.tasks.map ( (task,key) =>
-                    <ToDo key={key} task={task} toggle = {this.toggle} />                    
+                {this.state.tasks.map ( task =>
+                    <ToDo key={task.id} task={task} toggle = {this.toggle} />                    
                 )}
                 </ul>
                 
