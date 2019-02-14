@@ -3,7 +3,7 @@
 import ToDo from "./Todo";
 import ToDoForm from "./TodoForm";
 import React from 'react';
-
+import ReactDOM from 'react-dom';
 
 const listOfTasks = [
     {
@@ -48,12 +48,58 @@ class ToDoList extends React.Component {
         console.log(this.state);
     }
 
-    clearCompleted = e => {
-        // use preventDefault to override default behaviour
-        e.preventDefault();
-        // https://medium.com/@ericclemmons/react-event-preventdefault-78c28c950e46
+            // toggle
+        toggle = (e,selectedTask) => {
+            e.preventDefault();
 
+            if (selectedTask.state.completed == false) {
+                this.setState({tasks: 
+                    this.state.tasks.map(task => {
+                        if (task == selectedTask) {
+                            return {
+                                task: task.task,
+                                id: task.id,
+                                completed: true
+                            }
+                        }
+                        return task;
+                    }
+                    )
+                });
+
+                selectedTask.setState({completed: true});
+
+            }
+            else {
+                this.setState({tasks: 
+                    this.state.tasks.map(task => {
+                        if (task == selectedTask) {
+                            return {
+                                task: task.task,
+                                id: task.id,
+                                completed: false
+                            }
+                        }
+                        return task;
+                    }
+                    )
+                });
+
+                selectedTask.setState({completed: false});
+
+            };
+        }
+
+    clearCompleted = e => {
+        console.log("clearing completed!");
         
+        const notcompleted = this.state.tasks.filter(task => task.completed == false);
+        
+        // place that array onto set state 
+        this.setState({tasks: notcompleted});
+        
+        // check console
+        console.log(this.state.tasks);
 
     }
 
@@ -70,16 +116,10 @@ class ToDoList extends React.Component {
 
         return (
 
-            // use map to map all data from the listOfTasks
-            
-            // note the method binding on the ToDo Form.
-
-            // state is a great way of keeping track of
-            // which objects should change and which should not.
             <div className="ToDoList">
                 <ul>
                 {this.state.tasks.map ( (task,key) =>
-                    <ToDo key={key} task={task} />                    
+                    <ToDo key={key} task={task} toggle = {this.toggle} />                    
                 )}
                 </ul>
                 
@@ -87,7 +127,7 @@ class ToDoList extends React.Component {
                     addTask = {this.addTask}
                     value = {this.state.task}
                     handleChanges = {this.handleChanges}
-                    onClear = {this.clearCompleted}
+                    clearCompleted = {this.clearCompleted}
                 />
 
             </div>

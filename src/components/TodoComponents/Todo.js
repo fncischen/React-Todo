@@ -3,51 +3,27 @@ import React from 'react';
 class ToDo extends React.Component {
     constructor(props) {
      super(props);
+    
+     // the method reference to the to do list toggle method.
+     this.toggle = this.props.toggle; 
 
       this.state = {
         completed: this.props.task.completed,
-        // my original plan, but this doesn't work
-        // strikethrough: {
-        // textDecoration: "none"
-
         strikethrough: "none"
 
         }
       }
 
-      // console.log(this.props.task);
-      // console.log(this.state);
-
-        // toggle
-    toggle = e => {
-        e.preventDefault();
-
-        console.log(this.state.completed);
-        if (this.state.completed == false) {
-            this.setState(
-                {completed: true,
-                strikethrough: "line-through"}
-            );
-        }
-        else {
-            this.setState(
-                {completed: false,
-                strikethrough: "none"}
-            );
-        };
-    }
-
     render() {
 
         // place all relevant css styling here:
         const strikethrough_properties = {
-            textDecorationLine: this.state.strikethrough,
-            color: "purple"
+            textDecorationLine: this.state.strikethrough
         };
 
-        // browswer view
+        // browswer view. Note that the toggle will send this specific ToDo Component to the To Do List; 
         return (
-            <li style={strikethrough_properties} onClick={this.toggle}> {this.props.task.task}</li>
+            <li style={strikethrough_properties} onClick={this.toggle(this)}> {this.props.task.task}</li>
         );
     }
 }
