@@ -51,9 +51,11 @@ class ToDoList extends React.Component {
             // toggle
     toggle = (itemKey) => {
 
+            console.log(itemKey);
             this.setState({
                 tasks: this.state.tasks.map(task => {
                      if (itemKey == task.id) {
+                            console.log("toggling here");
                             return {
                                 task: task.task,
                                 id: task.id,
