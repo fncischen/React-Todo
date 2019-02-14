@@ -13,6 +13,7 @@ const ToDoForm = props => {
         ></input>
 
         <button type="submit">Add Task</button>
+        <button type="clear" onClear={props.clearCompleted}>Clear Completed</button>
         </form>
     );
 

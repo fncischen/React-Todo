@@ -38,6 +38,10 @@ class ToDoList extends React.Component {
     }
 
     addTask = e => {
+        // use preventDefault to override default behaviour
+        e.preventDefault();
+        // https://medium.com/@ericclemmons/react-event-preventdefault-78c28c950e46
+
         const newTask = {
             task: this.state.task,
             id: Date.now(),
@@ -52,6 +56,14 @@ class ToDoList extends React.Component {
             id: "",
             completed: ""
         });
+    }
+
+    clearCompleted = e => {
+        // use preventDefault to override default behaviour
+        e.preventDefault();
+        // https://medium.com/@ericclemmons/react-event-preventdefault-78c28c950e46
+
+
     }
 
     // track changes on the form :)
@@ -81,6 +93,7 @@ class ToDoList extends React.Component {
                     addTask = {this.addTask}
                     value = {this.state.task}
                     handleChanges = {this.handleChanges}
+                    onClear = {this.clearCompleted}
                 />
 
             </div>
