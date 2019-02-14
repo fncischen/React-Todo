@@ -22,12 +22,6 @@ class ToDoList extends React.Component {
     constructor(props) {
         super(props);
         
-        // place which arguments can change the state of this React Component:
-
-        // state = mutable properties
-        // prop = immutable properties
-
-        // each time the state changes, it updates the render method()
         this.state = {
             tasks: listOfTasks,
             task: "",
@@ -38,9 +32,7 @@ class ToDoList extends React.Component {
     }
 
     addTask = e => {
-        // use preventDefault to override default behaviour
         e.preventDefault();
-        // https://medium.com/@ericclemmons/react-event-preventdefault-78c28c950e46
 
         const newTask = {
             task: this.state.task,
@@ -51,11 +43,9 @@ class ToDoList extends React.Component {
         console.log(newTask);
         // call setState to tell the computer directly 
         this.setState({
-            tasks: [... listOfTasks, newTask],
-            task: "",
-            id: "",
-            completed: ""
+            tasks: [... this.state.tasks, newTask],
         });
+        console.log(this.state);
     }
 
     clearCompleted = e => {
@@ -82,6 +72,9 @@ class ToDoList extends React.Component {
             // use map to map all data from the listOfTasks
             
             // note the method binding on the ToDo Form.
+
+            // state is a great way of keeping track of
+            // which objects should change and which should not.
             <div className="ToDoList">
                 <ul>
                 {this.state.tasks.map ( (task,key) =>
