@@ -1,21 +1,56 @@
 import React from 'react';
 
-function ToDo(props) {
-    //constructor(props) {
+class ToDo extends React.Component {
+    constructor(props) {
+     super(props);
 
-        // not all data should be rendered, but can be
-        // stored for future use
-      //  super(props);
-      //  this.state = {
-      //    completed: this.props.completed
-      //  }
+      this.state = {
+        completed: this.props.task.completed,
+        // my original plan, but this doesn't work
+        // strikethrough: {
+        // textDecoration: "none"
 
-    // browswer view
-        return(
-            <li>{props.task.task}</li>
+        strikethrough: "none"
+
+        }
+      }
+
+      // console.log(this.props.task);
+      // console.log(this.state);
+
+        // toggle
+    toggle = e => {
+        e.preventDefault();
+
+        console.log(this.state.completed);
+        if (this.state.completed == false) {
+            this.setState(
+                {completed: true,
+                strikethrough: "line-through"}
+            );
+        }
+        else {
+            this.setState(
+                {completed: false,
+                strikethrough: "none"}
+            );
+        };
+    }
+
+    render() {
+
+        // place all relevant css styling here:
+        const strikethrough_properties = {
+            textDecorationLine: this.state.strikethrough,
+            color: "purple"
+        };
+
+        // browswer view
+        return (
+            <li style={strikethrough_properties} onClick={this.toggle}> {this.props.task.task}</li>
         );
+    }
 }
-
 
 
 
