@@ -3,6 +3,8 @@
 import ToDo from "./Todo";
 import ToDoForm from "./TodoForm";
 import React from 'react';
+import '../../styles.css';
+
 
 const listOfTasks = [
     {
@@ -94,21 +96,12 @@ class ToDoList extends React.Component {
 
     render() {
 
-        const noStrikethrough = {
-            textDecorationLine: "none"
-        }
-
-        const Strikethrough = {
-            textDecorationLine: "line-through"
-        }
-
-
         return (
 
             <div className="ToDoList">
                 <ul>
                 {this.state.tasks.map ( task => 
-                    <ToDo id={task.id} style={noStrikethrough} task={task} toggle = {this.toggle} />                    
+                        <ToDo id={task.id} task={task} toggle = {this.toggle} />                    
                 )}
                 </ul>
                 

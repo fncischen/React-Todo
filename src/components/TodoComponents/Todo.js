@@ -4,7 +4,7 @@ const ToDo = props => {
 
     // event notation 
     return (
-            <li onClick={() => props.toggle(props.id)}> {props.task.task}</li>
+            <li className={`task${props.task.completed ? ' completed' : ''}`} onClick={() => props.toggle(props.id)}> {props.task.task}</li>
     );
 }
 
