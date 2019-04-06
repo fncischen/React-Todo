@@ -1,21 +1,12 @@
 import React from 'react';
 
-function ToDo(props) {
-    //constructor(props) {
+const ToDo = props => {
 
-        // not all data should be rendered, but can be
-        // stored for future use
-      //  super(props);
-      //  this.state = {
-      //    completed: this.props.completed
-      //  }
-
-    // browswer view
-        return(
-            <li>{props.task.task}</li>
-        );
+    // event notation 
+    return (
+            <li className={`task${props.task.completed ? ' completed' : ''}`} onClick={() => props.toggle(props.id)}> {props.task.task}</li>
+    );
 }
-
 
 
 

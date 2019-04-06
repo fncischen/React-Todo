@@ -3,6 +3,7 @@
 import ToDo from "./Todo";
 import ToDoForm from "./TodoForm";
 import React from 'react';
+import '../../styles.css';
 
 
 const listOfTasks = [
@@ -48,11 +49,39 @@ class ToDoList extends React.Component {
         console.log(this.state);
     }
 
-    clearCompleted = e => {
-        // use preventDefault to override default behaviour
-        e.preventDefault();
-        // https://medium.com/@ericclemmons/react-event-preventdefault-78c28c950e46
+            // toggle
+    toggle = itemKey => {
 
+            console.log(itemKey);
+
+            // go through each element in list. 
+            this.setState({
+                tasks: this.state.tasks.map(task => {
+                     if (itemKey == task.id) {
+                            console.log("toggling here");
+                            return {
+                                task: task.task,
+                                id: task.id,
+                                completed: !task.completed
+                            };
+                        }
+                            return task;
+                    })
+            });
+
+            console.log("toggled!");
+    }
+
+    clearCompleted = e => {
+        console.log("clearing completed!");
+        
+        const notcompleted = this.state.tasks.filter(task => task.completed == false);
+        
+        // place that array onto set state 
+        this.setState({tasks: notcompleted});
+        
+        // check console
+        console.log(this.state.tasks);
 
     }
 
@@ -69,16 +98,10 @@ class ToDoList extends React.Component {
 
         return (
 
-            // use map to map all data from the listOfTasks
-            
-            // note the method binding on the ToDo Form.
-
-            // state is a great way of keeping track of
-            // which objects should change and which should not.
             <div className="ToDoList">
                 <ul>
-                {this.state.tasks.map ( (task,key) =>
-                    <ToDo key={key} task={task} />                    
+                {this.state.tasks.map ( task => 
+                        <ToDo id={task.id} task={task} toggle = {this.toggle} />                    
                 )}
                 </ul>
                 
@@ -86,7 +109,7 @@ class ToDoList extends React.Component {
                     addTask = {this.addTask}
                     value = {this.state.task}
                     handleChanges = {this.handleChanges}
-                    onClear = {this.clearCompleted}
+                    clearCompleted = {this.clearCompleted}
                 />
 
             </div>
